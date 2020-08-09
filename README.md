@@ -1,2 +1,4 @@
 # solitaire
-simple solitaire game in rust
+Simple solitaire game in rust
+
+Run project with `$ cargo run`
