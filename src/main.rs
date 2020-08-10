@@ -1,12 +1,7 @@
-extern crate rand;
 mod card;
 mod deck;
-
-/*
-    TODO:
-        - Compare colors
-        - Compare values
-*/
+mod input;
+mod moves;
 
 /*
 Piles:
@@ -31,5 +26,7 @@ If a vacancy in the tableau is created by the removal of cards elsewhere it is c
 
 fn main() {
     let mut piles = deck::set_up();
-    deck::print_piles(&mut piles);
+    deck::print_piles(&piles);
+
+    input::actions(&mut piles);
 }

@@ -99,32 +99,25 @@ impl Card {
             faceup: false,
         }
     }
+    pub fn get_card_value(&self) -> CardValue {
+        self.number
+    }
+    pub fn get_card_color(&self) -> CardColor {
+        self.color
+    }
+    pub fn get_card_suit(&self) -> CardType {
+        self.suit
+    }
+    pub fn get_value(&self) -> u8 {
+        self.value
+    }
+    pub fn is_faceup(&self) -> bool {
+        self.faceup
+    }
     pub fn show(&mut self) {
         self.faceup = true;
     }
     pub fn hide(&mut self) {
         self.faceup = false;
-    }
-}
-
-pub trait Move {
-    fn valid_move(&self, card: Card) -> bool;
-}
-
-impl Move for Card {
-    fn valid_move(&self, card: Card) -> bool {
-        match (&self.color, card.color) {
-            (CardColor::Black, CardColor::Black) => return false,
-            (CardColor::Red, CardColor::Red) => return false,
-            _ => (),
-        }
-
-        let next_value = self.value + 1;
-
-        if next_value != card.value {
-            return false;
-        }
-
-        return true;
     }
 }

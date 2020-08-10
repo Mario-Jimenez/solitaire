@@ -30,7 +30,7 @@ fn load_suit(deck: &mut Vec<Card>, suit: CardType) {
 }
 
 pub fn shuffle_deck(deck: &mut Vec<Card>) {
-    let mut rng = StdRng::seed_from_u64(356543);
+    let mut rng = StdRng::seed_from_u64(849);
     deck.shuffle(&mut rng);
 }
 
@@ -46,8 +46,9 @@ pub fn set_up() -> Vec<Vec<Card>> {
     piles.insert(0, initial_deck);
     piles.insert(1, empty_deck.clone());
 
+    let empty_foundation: Vec<Card> = Vec::with_capacity(13);
     for _ in 0..4 {
-        piles.push(empty_deck.clone());
+        piles.push(empty_foundation.clone());
     }
 
     piles
@@ -60,7 +61,7 @@ fn create_tableaus(piles: &mut Vec<Vec<Card>>, deck: &mut Vec<Card>) {
 }
 
 fn create_tableau(size: u8, deck: &mut Vec<Card>) -> Vec<Card> {
-    let mut tableau: Vec<Card> = Vec::new();
+    let mut tableau: Vec<Card> = Vec::with_capacity(13);
     for i in 0..size {
         let card = deck.pop();
         match card {
@@ -76,11 +77,11 @@ fn create_tableau(size: u8, deck: &mut Vec<Card>) -> Vec<Card> {
     tableau
 }
 
-pub fn print_piles(piles: &mut Vec<Vec<Card>>) {
+pub fn print_piles(piles: &Vec<Vec<Card>>) {
     print_top(piles);
 }
 
-fn print_top(piles: &mut Vec<Vec<Card>>) {
+fn print_top(piles: &Vec<Vec<Card>>) {
     print_last(piles, 0);
     print_last(piles, 1);
     print!("    ");
@@ -93,7 +94,7 @@ fn print_top(piles: &mut Vec<Vec<Card>>) {
     println!();
 }
 
-fn print_last(piles: &mut Vec<Vec<Card>>, index: usize) {
+fn print_last(piles: &Vec<Vec<Card>>, index: usize) {
     match piles.get(index) {
         Some(pile) => {
             let size = pile.len();
@@ -110,7 +111,7 @@ fn print_last(piles: &mut Vec<Vec<Card>>, index: usize) {
     }
 }
 
-fn largest_tableau(piles: &mut Vec<Vec<Card>>) -> usize {
+fn largest_tableau(piles: &Vec<Vec<Card>>) -> usize {
     let mut max = 0;
     for i in 2..9 {
         match piles.get(i) {
@@ -126,17 +127,15 @@ fn largest_tableau(piles: &mut Vec<Vec<Card>>) -> usize {
     max
 }
 
-fn print_tableaus(piles: &mut Vec<Vec<Card>>, largest: usize) {
+fn print_tableaus(piles: &Vec<Vec<Card>>, largest: usize) {
     for n in 0..largest {
         println!();
         for i in 2..9 {
             match piles.get(i) {
-                Some(pile) => {
-                    match pile.get(n) {
-                        Some(card) => print!("{} ", card),
-                        None => print!("    "),
-                    }
-                }
+                Some(pile) => match pile.get(n) {
+                    Some(card) => print!("{} ", card),
+                    None => print!("    "),
+                },
                 None => exit(1),
             }
         }
