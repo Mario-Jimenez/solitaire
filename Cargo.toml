@@ -8,5 +8,9 @@ edition = "2018"
 
 [dependencies]
 
+chrono = "0.4"
 crossterm = "0.17"
+log = "0.4"
 rand = "0.7"
+simplelog = "0.7"
+undo = "0.40"

@@ -29,15 +29,15 @@ fn load_suit(deck: &mut Vec<Card>, suit: CardType) {
     deck.push(k_card);
 }
 
-pub fn shuffle_deck(deck: &mut Vec<Card>) {
-    let mut rng = StdRng::seed_from_u64(849);
+pub fn shuffle_deck(deck: &mut Vec<Card>, game: u64) {
+    let mut rng = StdRng::seed_from_u64(game);
     deck.shuffle(&mut rng);
 }
 
-pub fn set_up() -> Vec<Vec<Card>> {
+pub fn set_up(game: u64) -> Vec<Vec<Card>> {
     let mut piles: Vec<Vec<Card>> = Vec::with_capacity(13);
     let mut initial_deck = new_deck();
-    shuffle_deck(&mut initial_deck);
+    shuffle_deck(&mut initial_deck, game);
 
     create_tableaus(&mut piles, &mut initial_deck);
 
@@ -79,6 +79,9 @@ fn create_tableau(size: u8, deck: &mut Vec<Card>) -> Vec<Card> {
 
 pub fn print_piles(piles: &Vec<Vec<Card>>) {
     print_top(piles);
+    let largest = largest_tableau(piles);
+    print_tableaus(piles, largest);
+    println!();
 }
 
 fn print_top(piles: &Vec<Vec<Card>>) {
@@ -89,9 +92,6 @@ fn print_top(piles: &Vec<Vec<Card>>) {
     print_last(piles, 10);
     print_last(piles, 11);
     print_last(piles, 12);
-    let largest = largest_tableau(piles);
-    print_tableaus(piles, largest);
-    println!();
 }
 
 fn print_last(piles: &Vec<Vec<Card>>, index: usize) {

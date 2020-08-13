@@ -1,6 +1,6 @@
 use std::fmt;
 
-#[derive(Copy, Clone)]
+#[derive(Debug, Copy, Clone)]
 pub enum CardValue {
     A,
     N(u8),
@@ -23,7 +23,7 @@ impl fmt::Display for CardValue {
     }
 }
 
-#[derive(Copy, Clone)]
+#[derive(Debug, Copy, Clone)]
 pub enum CardType {
     Corazones,
     Espadas,
@@ -42,7 +42,7 @@ impl fmt::Display for CardType {
     }
 }
 
-#[derive(Copy, Clone)]
+#[derive(Debug, Copy, Clone)]
 pub enum CardColor {
     Red,
     Black,
@@ -57,7 +57,7 @@ impl fmt::Display for CardColor {
     }
 }
 
-#[derive(Copy, Clone)]
+#[derive(Debug, Copy, Clone)]
 pub struct Card {
     suit: CardType,
     number: CardValue,
@@ -119,5 +119,9 @@ impl Card {
     }
     pub fn hide(&mut self) {
         self.faceup = false;
+    }
+    pub fn log(&self, log_string: &mut String) {
+        let log = format!("{}{}{} ", self.number, self.suit, self.color);
+        log_string.push_str(&log);
     }
 }

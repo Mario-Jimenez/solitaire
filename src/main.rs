@@ -1,6 +1,7 @@
 mod card;
 mod deck;
 mod input;
+mod logger;
 mod moves;
 
 /*
@@ -16,17 +17,7 @@ The Talon (or “Waste”) Pile: Cards from the stock pile that have no place in
     on foundations are laid face up in the waste pile.
 */
 
-/*
-Empty column
-If a vacancy in the tableau is created by the removal of cards elsewhere it is called a “space”,
-    and it is of major importance in manipulating the tableau. If a space is created, it can
-    only be filled in with a king. Filling a space with a king could potentially unblock one
-    of the face down cards in another pile in the tableau.
-*/
-
 fn main() {
-    let mut piles = deck::set_up();
-    deck::print_piles(&piles);
-
-    input::actions(&mut piles);
+    logger::init();
+    input::start_game();
 }

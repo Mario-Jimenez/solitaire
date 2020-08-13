@@ -91,7 +91,7 @@ pub fn move_card(
         None => return false,
     }
 
-    return true;
+    true
 }
 
 pub fn get_user_card(
